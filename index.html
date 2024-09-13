@@ -16322,7 +16322,26 @@
                 return (new Date).getTime() > a.expiry ? (window.localStorage.removeItem(e),
                 null) : a.value
             }
-        </script>
-    </form>
+            <script>
+                document.getElementById('contact-form').addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const name = document.getElementById('name').value;
+                    const age = document.getElementById('age').value;
+        
+                    try {
+                        const response = await fetch('http://localhost:3000/insert', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ name, age })
+                        });
+                        const result = await response.json();
+                        console.log('Data inserted:', result);
+                    } catch (error) {
+                        console.error('Error inserting data:', error);
+                    }
+                });
+            </script>
     </body>
 </html>
