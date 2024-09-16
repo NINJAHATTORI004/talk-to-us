@@ -14340,7 +14340,7 @@
                         <nav class="navbar navbar-expand-lg navbar-light" data-v-38dfb036>
                             <div class="container" style="padding-left: 7.5px !important" data-v-38dfb036>
                                 <button type="button" class="navbar-toggler" style="border: none; padding: 0" data-v-38dfb036>
-                                    <i class="bi bi-list" style="font-size: 25px" data-v-38dfb036></i>
+                                    <i class="bi bi-list" style="font-size: 25px" data-v-38dfb036>bi>
                                 </button>
                                 <a href="https://goodcreator.co/" target="_top" class="navbar-brand" style="padding: 0; margin: -10px 0" data-v-38dfb036>
                                     <img src="images\goodCreator-logo.png" height="50" alt="logo" class="d-inline-block align-top" data-v-38dfb036>
@@ -15190,24 +15190,24 @@
                                             <div class="section-1-right-wrapper" data-v-900286aa>
                                                 <div class="section-1-right-wrapper-row" data-v-900286aa>
                                                     <label class="input" style="width: 100%" data-v-900286aa>
-                                                        <input type="text" placeholder=" " class="input__field" data-v-900286aa>
+                                                        <input type="text" id="name" placeholder=" " class="input__field" data-v-900286aa>
                                                         <span class="input__label" data-v-900286aa>Full Name*</span>
                                                     </label>
                                                     <!---->
                                                 </div>
                                                 <div class="section-1-right-wrapper-row" data-v-900286aa>
                                                     <label class="input mr-0 mr-md-4" style="width: 100%" data-v-900286aa>
-                                                        <input type="text" placeholder=" " class="input__field" data-v-900286aa>
+                                                        <input type="text" id="phonenumber" placeholder=" " class="input__field" data-v-900286aa>
                                                         <span class="input__label" data-v-900286aa>Phone Number*</span>
                                                     </label>
                                                     <label class="input" style="width: 100%" data-v-900286aa>
-                                                        <input type="text" placeholder=" " class="input__field" data-v-900286aa>
+                                                        <input type="text" id="email" placeholder=" " class="input__field" data-v-900286aa>
                                                         <span class="input__label" data-v-900286aa>Work Email*</span>
                                                     </label>
                                                 </div>
                                                 <div class="section-1-right-wrapper-row" data-v-900286aa>
                                                     <label class="input" style="width: 100%" data-v-900286aa>
-                                                        <input type="text" placeholder=" " class="input__field" data-v-900286aa>
+                                                        <input type="text" id="website" placeholder=" " class="input__field" data-v-900286aa>
                                                         <span class="input__label" data-v-900286aa>Brand Website Link*</span>
                                                     </label>
                                                     <!---->
@@ -15352,7 +15352,7 @@
                                                 </div>
                                                 <div class="section-1-right-wrapper-row" data-v-900286aa>
                                                     <label class="input" style="width: 100%; overflow: hidden" data-v-900286aa>
-                                                        <input type="text" placeholder=" " class="input__field" data-v-900286aa>
+                                                        <input type="text" id="budget" placeholder=" " class="input__field" data-v-900286aa>
                                                         <span class="input__label" data-v-900286aa>What’s the objective, influencer preferences, etc.*</span>
                                                     </label>
                                                     <!---->
@@ -15364,7 +15364,7 @@
                                                         <a href="https://suite.goodcreator.co/sso/login?redirectUrl=https://suite.goodcreator.co/smart-campaigns?claimNow=true&amp;portal=GCC&amp;sourcePage=talk-to-us&amp;sourceCTA=plan-campaign&amp;utm_content=talk-to-us" style="color: #1a3661; text-decoration: underline" data-v-900286aa>Try Smart Campaigns</a>
                                                     </b>
                                                 </p>
-                                                <button type="button" id="submit-form-button" class="btn btn-primary btn-lg btn-block section-1-right-button" data-v-900286aa>
+                                                <button type="submit" id="submit-form-button" class="btn btn-primary btn-lg btn-block section-1-right-button" data-v-900286aa>
                                                     <span data-v-900286aa>Submit</span>
                                                 </button>
                                             </div>
@@ -16322,26 +16322,33 @@
                 return (new Date).getTime() > a.expiry ? (window.localStorage.removeItem(e),
                 null) : a.value
             }
-            <script>
-                document.getElementById('contact-form').addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    const name = document.getElementById('name').value;
-                    const age = document.getElementById('age').value;
         
-                    try {
-                        const response = await fetch('http://localhost:3000/insert', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ name, age })
-                        });
-                        const result = await response.json();
-                        console.log('Data inserted:', result);
-                    } catch (error) {
-                        console.error('Error inserting data:', error);
-                    }
-                });
-            </script>
+         
+    </script>
+</form>
+<script>
+            document.getElementById('contact-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                const phonenumber = document.getElementById('phonenumber').value;
+                const email = document.getElementById('email').value;
+                const website = document.getElementById('website').value;
+                const budget = document.getElementById('budget').value;
+    
+                try {
+                    const response = await fetch('http://localhost:3000/insert', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, phonenumber, email, website, budget })
+                    });
+                    const result = await response.json();
+                    console.log('Data inserted:', result);
+                } catch (error) {
+                    console.error('Error inserting data:', error);
+                }
+            });
+        </script>
     </body>
 </html>

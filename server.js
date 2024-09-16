@@ -1,12 +1,9 @@
-const express = require('express');
-const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000; // Use environment variable PORT or default to 3000
+const port = process.env.PORT || 3000;
 
 // Replace with your actual MongoDB connection string
 const uri = "mongodb://localhost:27017";
-
 const client = new MongoClient(uri);
 
 app.use(bodyParser.json());
@@ -14,8 +11,8 @@ app.use(bodyParser.json());
 app.post('/submit-feedback', async (req, res) => {
     try {
         await client.connect();
-        const database = client.db('feedbackDB');
-        const collection = database.collection('feedbacks');
+        const database = client.db('talk-to-us');
+        const collection = database.collection('responses');
         const result = await collection.insertOne(req.body);
         res.status(201).json(result);
     } catch (error) {
