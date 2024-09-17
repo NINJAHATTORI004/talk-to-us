@@ -16327,28 +16327,43 @@
     </script>
 </form>
 <script>
-            document.getElementById('contact-form').addEventListener('submit', async (event) => {
-                event.preventDefault();
-                const name = document.getElementById('name').value;
-                const phonenumber = document.getElementById('phonenumber').value;
-                const email = document.getElementById('email').value;
-                const website = document.getElementById('website').value;
-                const budget = document.getElementById('budget').value;
-    
-                try {
-                    const response = await fetch('http://localhost:3000/insert', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ name, phonenumber, email, website, budget })
-                    });
-                    const result = await response.json();
-                    console.log('Data inserted:', result);
-                } catch (error) {
-                    console.error('Error inserting data:', error);
-                }
+    document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Gather form data
+        const formData = {
+            fullName: document.getElementById('fullName').value,
+            phoneNumber: document.getElementById('phoneNumber').value,
+            workEmail: document.getElementById('workEmail').value,
+            brandWebsiteLink: document.getElementById('brandWebsiteLink').value,
+            requirements: document.getElementById('requirements').value,
+            brandCategory: document.getElementById('brandCategory').value,
+            campaignBudget: document.getElementById('campaignBudget').value,
+            campaignStartDate: document.getElementById('campaignStartDate').value,
+            objective: document.getElementById('objective').value,
+            influencers: document.getElementById('influencers').value,
+            preferences: document.getElementById('preferences').value,
+            howDidYouHear: document.getElementById('howDidYouHear').value,
+        };
+
+        try {
+            const response = await fetch('/submit-feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
             });
-        </script>
+
+            if (response.ok) {
+                alert('Feedback submitted successfully!');
+            } else {
+                alert('Failed to submit feedback');
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    });
+</script>
     </body>
 </html>
